@@ -88,7 +88,8 @@ def validator_char(start, end):
             time_end=time.time()
             print str(input_char)+" : "+predicted_char+"   "+lower+"  "+middle+"  "+upper+"     time:"+str(time_end-time_start)
 
-            # char_matrix[input_char]=predicted_char
+            # char_matrix[input_char]=predicted_cha
+            # #fdfdr
 
             char_matrix.setdefault(input_char, []).append(predicted_char)
 
