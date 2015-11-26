@@ -47,7 +47,7 @@ def features(character, y1, y2, x1, x2):
     # cv2.waitKey(0)
 
 
-    return char_array_ver_left, char_array_ver_right, char_array_hor_top, char_array_hor_bottom, matrix_info
+    return char_array_ver_left, char_array_ver_right, char_array_ver, char_array_hor_top, char_array_hor_bottom, char_array_hor, matrix_info
 
 def char_info(character):
 
@@ -56,7 +56,7 @@ def char_info(character):
     ret,thresh = cv2.threshold(character, 127, 255, 0)
     # print character.shape
 
-    image, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+    contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
 
     arc_length=0
     contour_area=0

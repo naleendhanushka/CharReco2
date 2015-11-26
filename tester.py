@@ -78,9 +78,9 @@ def tester_char(uri):
 
 
 
+tester_char("F:/single_characters/4_0_r.jpg")
 
-
-tester_char("C:/Users/Naleen/Desktop/New folder (3)/c (5).png")
+# tester_char("C:/Users/Naleen/Desktop/New folder (3)/c (5).png")
 
 
 

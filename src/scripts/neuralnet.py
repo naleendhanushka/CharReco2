@@ -1,3 +1,4 @@
+
 __author__ = 'Naleen'
 
 """
@@ -27,6 +28,7 @@ import numpy as np
 import scipy.sparse
 from scipy.optimize import fmin_l_bfgs_b
 import matplotlib.pyplot as plt
+from random import randint
 
 errorArray=[]
 class _NeuralNetwork:
@@ -103,18 +105,24 @@ class _NeuralNetwork:
 
         self.X = self.append_ones(X)
         self.y = y
+        # ab, bc =self.cost_grad
 
         # print self.cost_grad, initial_params,self.fmin_args
-        params, _, _ = fmin_l_bfgs_b(self.cost_grad, initial_params, **self.fmin_args)
-        # print self.cost_grad[0]
+        params, k1, k2 = fmin_l_bfgs_b(self.cost_grad, initial_params, **self.fmin_args)
+
         self.Theta1, self.Theta2 = self.unfold_params(params)
+
+        #output layer weights
+        # print self.Theta2
+
+        #input layer weights
+        # print self.Theta1
 
     def predict(self, X):
         m, n = X.shape
 
         a2 = _sigmoid(self.append_ones(X).dot(self.Theta1.T))
         a3 = _sigmoid(np.column_stack((np.ones(m), a2)).dot(self.Theta2.T))
-
         return a3
 
     def append_ones(self, X):
@@ -122,6 +130,7 @@ class _NeuralNetwork:
         if scipy.sparse.issparse(X):
             return scipy.sparse.hstack((np.ones((m, 1)), X)).tocsr()
         else:
+            # print np.column_stack((np.ones(m), X))
             return np.column_stack((np.ones(m), X))
 
 def _sigmoid(x):
@@ -232,11 +241,27 @@ class NeuralNetworkLearner(Orange.classification.Learner):
 
         with np.errstate(over="ignore"):
             nn.fit(X, Y)
-        print errorArray
-        plt.plot(errorArray)
-        plt.ylabel('some numbers')
-        plt.show()
 
+
+        # # print errorArray
+        # fig_ephs=plt.figure()
+        # fig_ephs.suptitle("Epochs - Cost")
+        # ax1=fig_ephs.add_subplot(111)
+        # ax1.plot(errorArray)
+        # # fig_ephs.ylabel('some numbers')
+        #
+        # fig_ephs.savefig('test/foo'+str(randint(0,1000))+'.png')
+        # plt.show()
+
+
+
+        plt.plot(errorArray, label='')
+        plt.legend(loc='upper left')
+
+
+
+
+        del errorArray[:]
 
 
         return NeuralNetworkClassifier(domain=data.domain, nn=nn, normalize=self.normalize, mean=mean, std=std)

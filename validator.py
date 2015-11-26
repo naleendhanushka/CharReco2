@@ -5,7 +5,7 @@ import pickle
 import numpy as np
 import cv2
 import Orange
-
+import os
 
 
 
@@ -20,6 +20,26 @@ from src.scripts import loadfile
 
 np.set_printoptions(threshold='nan')
 
+package_directory = os.path.dirname(os.path.abspath(__file__))
+
+def performance(char_matrix, char_time_matrix):
+    for key,values in char_matrix.items():
+        predicted = ""
+        m = 0
+        k = 0
+        average_time = np.average(char_time_matrix.get(key))
+
+        for value in values:
+            k=k+1
+            if key == value:
+                m = m+1
+            predicted = predicted+", "+value
+        # print k
+        # print m
+        print str(key)+" : "+str(m/float(k))+" : "+str(average_time)+" : "+str(predicted)
+
+# def confusion_matrix(char_matrix, char_time_matrix):
+#     print char_matrix
 
 
 
@@ -27,19 +47,24 @@ def validator_char(start, end):
     # lowerZoneLabels, middleZoneLabels, upperZoneLabels, classifier_middle, classifier_lower, classifier_upper=loadfile()
     img = cv2.imread('C:/Users/Naleen/PycharmProjects/CharReco2/data/chars - Copy.jpg')
     iMax = 109
-    jMax = 41
+    # iMax=5
     gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
     dataString_middle=""
     dataString_lower=""
     dataString_upper=""
     char_matrix = {}
+    char_time_matrix = {}
     lowerZoneLabels = fileIO.read_label_file('learner/lowerZoneLabels')
     middleZoneLabels = fileIO.read_label_file('learner/middleZoneLabels')
     upperZoneLabels = fileIO.read_label_file('learner/upperZoneLabels')
-    classifier_middle = pickle.load(open('learner/ANN_middle'))
-    classifier_lower = pickle.load(open('learner/ANN_lower'))
-    classifier_upper = pickle.load(open('learner/ANN_upper'))
+    # classifier_middle = pickle.load(open('learner/ANN_middle'))
+    # classifier_lower = pickle.load(open('learner/ANN_lower'))
+    # classifier_upper = pickle.load(open('learner/ANN_upper'))
+    classifier_middle = pickle.load(open(os.path.join(package_directory, 'learner/ANN_middle')))
+    classifier_lower = pickle.load(open(os.path.join(package_directory, 'learner/ANN_lower')))
+    classifier_upper = pickle.load(open(os.path.join(package_directory, 'learner/ANN_upper')))
+
 
 
     for j in range (start, end):
@@ -77,7 +102,7 @@ def validator_char(start, end):
             # print MiddleZoneClass
             # char1=char_mapper.char_map(LowerZoneClass, MiddleZoneClass, UpperZoneClass)
             # print char1
-            print str(i)+ "####################"
+
 
             predicted_char, lower, middle, upper = prob_match.probability_match(lower=[LowerZoneProb,lowerZoneLabels],
                                                 middle=[MiddleZoneProb, middleZoneLabels],
@@ -86,34 +111,24 @@ def validator_char(start, end):
             # char_mapper.char_map()
             input_char= validate_mapper.char_map(i)
             time_end=time.time()
-            print str(input_char)+" : "+predicted_char+"   "+lower+"  "+middle+"  "+upper+"     time:"+str(time_end-time_start)
+            if input_char is not None:
+                print str(i)+ "####################"
+                print str(input_char)+" : "+predicted_char+"   "+lower+"  "+middle+"  "+upper+"     time:"+str(time_end-time_start)
 
             # char_matrix[input_char]=predicted_cha
             # #fdfdr
+            if input_char is not None:
+                char_matrix.setdefault(input_char, []).append(predicted_char)
+                char_time_matrix.setdefault(input_char, []).append(time_end-time_start)
 
-            char_matrix.setdefault(input_char, []).append(predicted_char)
 
-
-    for key,values in char_matrix.items():
-        predicted=""
-        m=0
-        k=0
-        for value in values:
-           k=k+1
-           if(key == value ):
-               m=m+1
-           predicted=predicted+", "+value
-        # print k
-        # print m
-        print str(key)+" : "+str(m/float(k))+" : "+str(predicted)
+    performance(char_matrix, char_time_matrix)
+    # confusion_matrix(char_matrix, char_time_matrix)
 
 
 
-
-
-
-# validator_char(zone='upper', start=30, end=41)
-validator_char(start=30, end=40)
+# validator_char(start=30, end=35)
+validator_char(start=1, end=40)
 
 
 

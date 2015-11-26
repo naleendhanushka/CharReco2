@@ -145,7 +145,7 @@ def middlezone_mapper(i):
         mapper = True
         label = 'm35'
 
-    if i == 39:
+    if i == 39 or i == 107 or i == 106:
         mapper = True
         label = 'm36'
 
@@ -217,6 +217,10 @@ def middlezone_mapper(i):
     if i == 85:
         mapper = True
         label = 'm53'
+
+    # if i == 108:
+    #     mapper = True
+    #     label = 'm54'
 
     return mapper, label
 

@@ -13,7 +13,7 @@ def middle(character, y_low, y_high, x_low, x_high):
     dataArray.append(xMax-xMin)
 
 
-    char_array_ver_left, char_array_ver_right, char_array_hor_top, char_array_hor_bottom, matrix_info= zone_info.features(character, y_low, y_high, x_low, x_high)
+    char_array_ver_left, char_array_ver_right, char_array_ver, char_array_hor_top, char_array_hor_bottom, char_array_hor, matrix_info= zone_info.features(character, y_low, y_high, x_low, x_high)
     dataArray.extend(char_array_ver_left)
     dataArray.extend(char_array_ver_right)
     # dataArray.extend(char_array_ver)
@@ -48,7 +48,7 @@ def lower(character, y_low, y_high, x_low, x_high):
     dataArray.append(xMax-xMin)  #?
     dataArray.append(yMax-yMin)  #?
 
-    char_array_ver_left, char_array_ver_right, char_array_hor_top, char_array_hor_bottom, matrix_info= zone_info.features(character, y_low, y_high, x_low, x_high)
+    char_array_ver_left, char_array_ver_right, char_array_ver, char_array_hor_top, char_array_hor_bottom, char_array_hor, matrix_info= zone_info.features(character, y_low, y_high, x_low, x_high)
     dataArray.extend(char_array_ver_left)
     dataArray.extend(char_array_ver_right)
     # dataArray.extend(char_array_ver)
@@ -72,7 +72,7 @@ def upper(character, y_low, y_high, x_low, x_high):
 
     dataArray.append(xMax-xMin)
 
-    char_array_ver_left, char_array_ver_right, char_array_hor_top, char_array_hor_bottom, matrix_info= zone_info.features(character, y_low, y_high, x_low, x_high)
+    char_array_ver_left, char_array_ver_right, char_array_ver, char_array_hor_top, char_array_hor_bottom, char_array_hor, matrix_info= zone_info.features(character, y_low, y_high, x_low, x_high)
     dataArray.extend(char_array_ver_left)
     dataArray.extend(char_array_ver_right)
     # dataArray.extend(char_array_ver)

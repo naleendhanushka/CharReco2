@@ -16,9 +16,9 @@ def get_mask(character, border_limit):
 
 
     ret, thresh_upper = cv2.threshold(upper, 127, 255, 0)
-    img, contours_upper, hierarchy = cv2.findContours(thresh_upper,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)
+    contours_upper, hierarchy = cv2.findContours(thresh_upper,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)
     ret, thresh_lower = cv2.threshold(lower, 127, 255, 0)
-    img, contours_lower, hierarchy = cv2.findContours(thresh_lower,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)
+    contours_lower, hierarchy = cv2.findContours(thresh_lower,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)
 
     for cnt in contours_upper:
         # Height coordinates of the contour

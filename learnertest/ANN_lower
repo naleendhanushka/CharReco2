@@ -642,7 +642,7 @@ tp7
 Ntp8
 bsS'reg_fact'
 p9
-F0.01
+I1
 sS'name'
 p10
 S'NeuralNetwork'

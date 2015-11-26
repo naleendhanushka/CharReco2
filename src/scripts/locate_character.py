@@ -5,7 +5,7 @@ import cv2
 def char_location(character):
 
     ret,thresh = cv2.threshold(character, 127, 255, 0)
-    image, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+    contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
 
     xMax = 0
     yMax = 0

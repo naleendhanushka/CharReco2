@@ -75,7 +75,7 @@ def sort_probs(zone_list):
             # print i
 
         joint_array = np.dstack((np.array(label_list), np.array(prob_array)))
-
+        # print joint_array
         # take the first 10 value of the sorted [label, probability] list
         return joint_array[0][joint_array[0][:, 1].argsort()[::-1]][:]
 
@@ -84,7 +84,7 @@ def probability_match(lower, middle, upper):
     lower_arr = sort_probs(lower)
     middle_arr = sort_probs(middle)
     upper_arr = sort_probs(upper)
-
+    # print middle_arr
     # for i in range(1, len(lower_arr)):
     arr=[]
     i=0

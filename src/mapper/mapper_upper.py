@@ -38,7 +38,7 @@ def upperzone_mapper(i):
         mapper = True
         label = 'u7'
 
-    if i == 83 or i == 84:
+    if i == 83 or i == 84 or i == 108:
         mapper = True
         label = 'u8'
 
